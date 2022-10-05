@@ -39,21 +39,20 @@ def mostrar(lista:list,key:str):
 
     return mensaje
 
-def buscar_peronsaje_mas_alto_mas_bajo(lista:list,key:str,modo:str)->str:
+def buscar_personaje_mas_alto_mas_bajo(lista:list,key:str,modo:str)->str:
     '''
     recibe una lista y una key 
     modo asc o desc
     busca el peronsaje mas alto y lo devuelve 
     '''
     validar_entero(lista,key)
-    buscar_peronsaje_mas_alto_mas_bajo = 0 
+    indice_mas_alto_mas_bajo = 0 
     for i in range(len(lista)) : 
-
-        if modo == "asc" and lista[i][key] < lista[buscar_peronsaje_mas_alto_mas_bajo][key] :
-            buscar_peronsaje_mas_alto = i
-        if modo == "desc" and lista[i][key] > lista[buscar_peronsaje_mas_alto_mas_bajo][key] :
-            buscar_peronsaje_mas_alto = i
-    retorno = buscar_peronsaje_mas_alto_mas_bajo
+        if modo == "asc" and float(lista[i][key]) < float(lista[indice_mas_alto_mas_bajo][key]) :
+            indice_mas_alto_mas_bajo = i
+        if modo == "desc" and float(lista[i][key]) >float(lista[indice_mas_alto_mas_bajo][key]) :
+            indice_mas_alto_mas_bajo = i
+    retorno = indice_mas_alto_mas_bajo
     return retorno
 
 def sort_ordenamiento_personaje(lista:list,key:str,modo:str):
@@ -62,9 +61,10 @@ def sort_ordenamiento_personaje(lista:list,key:str,modo:str):
     dependedienendo de la key
     '''
     lista_copiada = lista.copy()
+    print(lista_copiada)
     for i in range(len(lista)):
-        indice=buscar_peronsaje_mas_alto_mas_bajo(lista[i:],key,modo)+i
-        lista_copiada[i],lista_copiada[indice] = lista_copiada[indice],lista_copiada[i]
+        indice_mas_alto_mas_bajo = buscar_personaje_mas_alto_mas_bajo(lista_copiada[i:],key,modo)+i
+        lista_copiada[i],lista_copiada[indice_mas_alto_mas_bajo] = lista_copiada[indice_mas_alto_mas_bajo],lista_copiada[i]
     return lista_copiada
 
 def exportar_arvhivo(lista:list,path:str,key:str):
@@ -73,7 +73,7 @@ def exportar_arvhivo(lista:list,path:str,key:str):
     '''
     with open(path,"w") as archivo:
         for personaje in lista:
-            archivo.write("nombre :{0} |  :  {2} | {1}\n".format(personaje["name"],personaje[key],key))
+            archivo.write("nombre :{0} |    {2} | {1}\n".format(personaje["name"],personaje[key],key))
 
 
 def buscar_heroes(lista:list,buscador:str):
